@@ -1,0 +1,55 @@
+<head>
+<!-- Plotly.js -->
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        </head>
+        <body>
+        <!-- Plotly chart will be drawn inside this DIV -->
+        <div id="myDiv"></div>
+        
+        <script>
+        Plotly.d3.csv('data/station_data_count.csv', function(err, rows){
+      function unpack(rows, key) {
+          return rows.map(function(row) { return row[key]; });
+      }
+
+      var data = [{
+          type: 'choropleth',
+          locationmode: 'USA-states',
+          locations: unpack(rows, 'State'),
+          z: unpack(rows, 'Number of Stations'),
+          text: unpack(rows, 'EV Connector Types'),
+          zmin: 0,
+          zmax: 4300,
+          colorscale: [
+              [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
+              [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
+              [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
+          ],
+          colorbar: {
+              title: 'number of stations',
+              thickness: 15
+          },
+          marker: {
+              line:{
+                  color: 'rgb(255,255,255)',
+                  width: 2
+              }
+          }
+      }];
+
+
+      var layout = {
+        
+          title: 'Electric stations by state',
+          geo:{
+              scope: 'usa',
+              showlakes: true,
+              lakecolor: 'rgb(255,255,255)'
+          }
+      };
+
+      Plotly.plot(myDiv, data, layout, {showLink: false});
+});
+        </script>
+        </body>
