@@ -1,12 +1,16 @@
 <head>
 <!-- Plotly.js -->
 
+<meta charset=utf-8 />
+    <title style="font-size:20px"> Number of Electric Stations by Stater</title>
+
+
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         </head>
         <body>
         <!-- Plotly chart will be drawn inside this DIV -->
         <div id="myDiv"></div>
-        
+            
         <script>
         Plotly.d3.csv('data/station_data_count.csv', function(err, rows){
       function unpack(rows, key) {
@@ -28,7 +32,8 @@
           ],
           colorbar: {
               title: 'number of stations',
-              thickness: 15
+              thickness: 15,
+              len:0.5
           },
           marker: {
               line:{
@@ -40,6 +45,10 @@
 
 
       var layout = {
+          autosize: false,
+          width: 900,
+          height: 900,
+          margin: {l: 20, r:10, b: 10, t: 100, pad: 2},
         
           title: 'Electric stations by state',
           geo:{

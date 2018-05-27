@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <head>
 <meta charset=utf-8 />
-    <title> Electric Car Sales by Year</title>
+    <title style="font-size:20px"> Electric Car Sales by Manufacturer</title>
 </head>
 
 <body>
 <header>
-    <h1 align="center"> Electric Vehicle Sales [2011-2017]</h1>
- <nav>
-    <li><a href="index2.html"> Electric Stations</a></li>
+    <h1 align="center"> Electric Vehicle Sales by Manufacturer [2011-2017]</h1>
+    <p style="font-size:18px"> The automakers with the most sales in the US from 2008 through June 2017 to date are:</p>
+    <ul style="font-size:14px">
+    <li type = "1"> General Motors:146,397</li>
+    <li type = "1"> Tesla:134,144</li>
+    <li type = "1"> Nissan:112,128</li>
     
-    </nav>   
+    </ul>
+    
+<p style="font-size:16px"> Below Bar Chart shows the Electric vehicle sales from 2008-2017 by Manufacturers:</p>
+  
 </header>
 </body>
+
 <style>
 
 .axis .domain {
@@ -173,5 +180,10 @@ d3.csv("data/sales_data.csv", function(d, i, columns) {
       .attr("dy", "0.32em")
       .text(function(d) { return d; });
 });
-
+    
 </script>
+<nav style="font-size:12px">
+<li type = "square"><a href="total_sales.html"> Sales Projection Chart</a></li>
+    
+    </nav> 
+
