@@ -25,10 +25,14 @@ def index():
 def scrape():
     data = electric_car_scrapper.scrapper_main()
     collection.insert_one(data)
-    return redirect("http://localhost:5000/search", code=302)
+    return redirect("http://localhost:5000/charts", code=302)
+
+@app.route('/charts')
+def index2():
+    return render_template('index_two.html')
 
 @app.route('/search')
-def index2():
+def index3():
     cars_info = db.Cars.find()
 
     BMW_Model = cars_info[0]['BMW i3']['Model']
@@ -159,7 +163,7 @@ def index2():
     VW_Range = cars_info[0]['Volkswagen e-Golf']['Range']
     VW_Number_Of_Seats = cars_info[0]['Volkswagen e-Golf']['Number of Seats']
 
-    return render_template('index_two.html',
+    return render_template('index_three.html',
                             BMW_Model = BMW_Model,
                             BMW_Company = BMW_Company,
                             BMW_Image_Url = BMW_Image_Url,

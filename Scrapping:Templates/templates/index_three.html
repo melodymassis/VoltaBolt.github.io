@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VoltaBolt</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+
+<!-- <body>
+  <div clas="container">
+        <h1>VoltaBolt</h1>         
+  </div>
+
+<div class="card-group">
+  <div class="row mt-5 justify-content-center">
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://pluginamerica.org/wp-content/uploads/2016/06/i3-1-300x162.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{BMW_Model}}</h5>
+          <p class="card-text">{{BMW_Description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Range: {{BMW_Range}}</li>
+          <li class="list-group-item">Price: {{BMW_Price}}</li>
+          <li class="list-group-item">Number of Seats: {{BMW_Number_Of_Seats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="https://pluginamerica.org/plug-in-vehicle/bmw-i3/" class="card-link">More Info</a>
+        </div>
+      </div>
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://images.hgmsites.net/lrg/2017-chevrolet-bolt-ev-5dr-hb-lt-angular-front-exterior-view_100603023_l.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{Chevy_Model}}</h5>
+          <p class="card-text">{{Chevy_Description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Range: {{Chevy_Range}}</li>
+          <li class="list-group-item">Price: {{Chevy_Price}}</li>
+          <li class="list-group-item">Number of Seats: {{Chevy_Number_Of_Seats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="https://pluginamerica.org/plug-in-vehicle/chevrolet-bolt-ev/" class="card-link">More Info</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://images.dealer.com/ddc/vehicles/2017/FIAT/500e/Hatchback/color/Bianco%20Perla-PWH-241,237,227-640-en_US.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{Fiat_Model}}</h5>
+          <p class="card-text">{{Fiat_Description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Range: {{Fiat_Range}}</li>
+          <li class="list-group-item">Price: {{Fiat_Price}}</li>
+          <li class="list-group-item">Number of Seats: {{Fiat_Number_Of_Seats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="https://pluginamerica.org/plug-in-vehicle/fiat-500e/" class="card-link">More Info</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://images.hgmsites.net/lrg/2018-ford-focus-electric_100604706_l.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{Ford_Model}}</h5>
+          <p class="card-text">{{Ford_Description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Range: {{Ford_Range}}</li>
+          <li class="list-group-item">Price: {{Ford_Price}}</li>
+          <li class="list-group-item">Number of Seats: {{Ford_Number_Of_Seats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="https://pluginamerica.org/plug-in-vehicle/ford-focus-electric/" class="card-link">More Info</a>
+        </div>
+      </div>
+  </div>
+
+  <div class="row mt-5 justify-content-center">
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://images.hgmsites.net/lrg/2017-nissan-leaf-sl-hatchback-angular-front-exterior-view_100610032_l.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{Nissan_Model}}</h5>
+          <p class="card-text">{{Nissan_Description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Range: {{Nissan_Range}}</li>
+          <li class="list-group-item">Price: {{Nissan_Price}}</li>
+          <li class="list-group-item">Number of Seats: {{Nissan_Number_Of_Seats}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="https://pluginamerica.org/plug-in-vehicle/nissan-leaf/" class="card-link">More Info</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src=" http://www.quantyausa.com/i/model-strada.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{Quantya_Model}}</h5>
+            <p class="card-text">{{Quantya_Description}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Range: {{Quantya_Range}}</li>
+            <li class="list-group-item">Price: {{Quantya_Price}}</li>
+            <li class="list-group-item">Number of Seats: {{Quantya_Number_Of_Seats}}</li>
+          </ul>
+          <div class="card-body">
+            <a href="https://pluginamerica.org/plug-in-vehicle/quantya-strada/" class="card-link">More Info</a>
+          </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://images.hgmsites.net/lrg/2018-kia-soul-auto-angular-front-exterior-view_100631301_l.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{Kia_Model}}</h5>
+            <p class="card-text">{{Kia_Description}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Range: {{Kia_Range}}</li>
+            <li class="list-group-item">Price: {{Kia_Price}}</li>
+            <li class="list-group-item">Number of Seats: {{Kia_Number_Of_Seats}}</li>
+          </ul>
+          <div class="card-body">
+            <a href="https://pluginamerica.org/plug-in-vehicle/kia-soul-ev/" class="card-link">More Info</a>
+          </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://di-uploads-pod5.dealerinspire.com/fletcherjonesmercedesbenzhonolulumaui/uploads/2016/07/2015-B-CLASS-ELECTRIC-DRIVE-BASE-MH1-D.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{Mercedes_Model}}</h5>
+            <p class="card-text">{{Mercedes_Description}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Range: {{Mercedes_Range}}</li>
+            <li class="list-group-item">Price: {{Mercedes_Price}}</li>
+            <li class="list-group-item">Number of Seats: {{Mercedes_Number_Of_Seats}}</li>
+          </ul>
+          <div class="card-body">
+            <a href="https://pluginamerica.org/plug-in-vehicle/mercedes-b-class/" class="card-link">More Info</a>
+          </div>
+        </div>
+
+        <div class="row mt-5 justify-content-center">
+
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="https://images.hgmsites.net/lrg/2018-honda-fcx-clarity_100599397_l.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{Honda_Model}}</h5>
+              <p class="card-text">{{Honda_Description}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Range: {{Honda_Range}}</li>
+              <li class="list-group-item">Price: {{Honda_Price}}</li>
+              <li class="list-group-item">Number of Seats: {{Honda_Number_Of_Seats}}</li>
+            </ul>
+            <div class="card-body">
+              <a href="https://pluginamerica.org/plug-in-vehicle/honda-clarity-electric/" class="card-link">More Info</a>
+            </div>
+          </div>
+    
+          <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="https://www.cstatic-images.com/car-pictures/xl/usc70hyc331c021001.png" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{Hyundai_Model}}</h5>
+                <p class="card-text">{{Hyundai_Description}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Range: {{Hyundai_Range}}</li>
+                <li class="list-group-item">Price: {{Hyundai_Price}}</li>
+                <li class="list-group-item">Number of Seats: {{Hyundai_Number_Of_Seats}}</li>
+              </ul>
+              <div class="card-body">
+                <a href="https://pluginamerica.org/plug-in-vehicle/hyundai-ioniq-electric/" class="card-link">More Info</a>
+              </div>
+            </div>
+    
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="https://images.hgmsites.net/lrg/2016-smart-fortwo-electric-drive-2-door-coupe-passion-angular-front-exterior-view_100573718_l.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{Smart_Model}}</h5>
+                <p class="card-text">{{Smart_Description}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Range: {{Smart_Range}}</li>
+                <li class="list-group-item">Price: {{Smart_Price}}</li>
+                <li class="list-group-item">Number of Seats: {{Smart_Number_Of_Seats}}</li>
+              </ul>
+              <div class="card-body">
+                <a href="https://pluginamerica.org/plug-in-vehicle/smart-ed/" class="card-link">More Info</a>
+              </div>
+            </div>
+    
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="http://polaris.hs.llnwd.net/o40/vic/2017/img/motorcycles/my17-overview/360/empulse-tt-titanium-silver-havasu-red/angle-18.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{Victory_Model}}</h5>
+                <p class="card-text">{{Victory_Description}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Range: {{Victory_Range}}</li>
+                <li class="list-group-item">Price: {{Victory_Price}}</li>
+                <li class="list-group-item">Number of Seats: {{Victory_Number_Of_Seats}}</li>
+              </ul>
+              <div class="card-body">
+                <a href="https://pluginamerica.org/plug-in-vehicle/victory-empulse-tt/" class="card-link">More Info</a>
+              </div>
+            </div>
+
+        <div class="row mt-5 justify-content-center">
+
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://crdms.images.consumerreports.org/c_lfill,w_2000/prod/cars/cr/model-years/9175-2018-tesla-model-3" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{Tesla3_Model}}</h5>
+                  <p class="card-text">{{Tesla3_Description}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Range: {{Tesla3_Range}}</li>
+                  <li class="list-group-item">Price: {{Tesla3_Price}}</li>
+                  <li class="list-group-item">Number of Seats: {{Tesla3_Number_Of_Seats}}</li>
+                </ul>
+                <div class="card-body">
+                  <a href="https://pluginamerica.org/plug-in-vehicle/tesla-model-3/" class="card-link">More Info</a>
+                </div>
+              </div>
+        
+              <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" src="https://images.hgmsites.net/lrg/2015-tesla-model-s-4-door-sedan-awd-85d-angular-front-exterior-view_100504725_l.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{TeslaS_Model}}</h5>
+                    <p class="card-text">{{TeslaS_Description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Range: {{TeslaS_Range}}</li>
+                    <li class="list-group-item">Price: {{TeslaS_Price}}</li>
+                    <li class="list-group-item">Number of Seats: {{TeslaS_Number_Of_Seats}}</li>
+                  </ul>
+                  <div class="card-body">
+                    <a href="https://pluginamerica.org/plug-in-vehicle/tesla-model-s/" class="card-link">More Info</a>
+                  </div>
+                </div>
+        
+                <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" src="https://images.hgmsites.net/lrg/2017-tesla-model-x-75d-awd-angular-front-exterior-view_100601789_l.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{TeslaX_Model}}</h5>
+                    <p class="card-text">{{TeslaX_Description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Range: {{TeslaX_Range}}</li>
+                    <li class="list-group-item">Price: {{TeslaX_Price}}</li>
+                    <li class="list-group-item">Number of Seats: {{TeslaX_Number_Of_Seats}}</li>
+                  </ul>
+                  <div class="card-body">
+                    <a href="https://pluginamerica.org/plug-in-vehicle/tesla-model-x/" class="card-link">More Info</a>
+                  </div>
+                </div>
+        
+                <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" src="https://images.hgmsites.net/lrg/2017-volkswagen-e-golf-4-door-se-angular-front-exterior-view_100635387_l.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{VW_Model}}</h5>
+                    <p class="card-text">{{VW_Description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Range: {{VW_Range}}</li>
+                    <li class="list-group-item">Price: {{VW_Price}}</li>
+                    <li class="list-group-item">Number of Seats: {{VW_Number_Of_Seats}}</li>
+                  </ul>
+                  <div class="card-body">
+                    <a href="https://pluginamerica.org/plug-in-vehicle/volkswagen-e-golf/" class="card-link">More Info</a>
+                  </div>
+                </div>     
+</body> -->
+</html>
