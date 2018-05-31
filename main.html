@@ -16,6 +16,7 @@
 	</head>
 	<body>
     <div class="col-lg-12">
+        <a target="_blank" href="index1.html">
         <div class="col-lg-6">
             <h3 align="center"> Electric Vehicle Sales by Manufacturer [2011-2017]</h3>
             <p style="font-size:18px"> The automakers with the most sales in the US from 2008 through June 2017 to date are:</p>
@@ -27,18 +28,12 @@
             <p style="font-size:16px"> Below Bar Chart shows the Electric vehicle sales from 2008-2017 by Manufacturers:</p>
             <svg width="560" height="150" id="svg-1-mini"></svg>
         </div>
+        </a>
         <div class="col-lg-6">
+            <a target="_blank" href="index2.html">
             <div id="myDivMini"></div>
+            </a>
         </div>
-    </div>
-    <!-- added verbiage-->
-    <div class="col-xs-12  col-md-9">
-            <div class="instructions">
-                 <h2>Shop for Electric Vehicles!</h2>
-                  <p> - Click on each bubble to shop for the selected electric car</p>
-                <p> - Hover on each bubble to learn the name of the car and its mile range and price</p>
-                 </div>
-            </div>
     </div>
 
     <div class="col-lg-12">
@@ -51,10 +46,13 @@
 
     <div class="col-lg-12">
         <div class="col-lg-6">
+            <a target="_blank" href="index3.html">
             <div id="scatter-mini" style="width: 560px;">
                 <!-- We append our chart here. -->
             </div>
+            </a>
         </div>
+        <a target="_blank" href="index4.html">
         <div class="col-lg-6">
             <h1 align="center", style="font-size:28px"> Electric Vehicle Sales [2011-2025]</h1>
             <p style="font-size:18px"> Top Months for U.S. EV Sales to Date 2008- 2017:</p>
@@ -68,6 +66,7 @@
             <!-- Plotly chart will be drawn inside this DIV -->
             <div id="myDiv4Mini"></div>
         </div>
+        </a>
     </div>
 
     <div class="col-lg-12">
@@ -86,11 +85,10 @@
         $("#scatter-full").hide();
         $("#myDiv4Full").hide();
 
-        $("#svg-1-mini").click(function() {
+        /*$("#svg-1-mini").click(function() {
             if($("#svg-1-full").is(":visible")) {
                 $("#svg-1-full").hide();
             }else {
-
                 $("#svg-1-full").show();
                 scrollToElement("#svg-1-full");
             }
@@ -130,7 +128,7 @@
             $("#svg-1-full").hide();
             $("#scatter-full").hide();
             $("#myDivFull").hide();
-        });
+        });*/
 
         function scrollToElement(el_id) {
             var destination = $(el_id).offset().top;
@@ -852,7 +850,7 @@
 
             };
 
-            Plotly.plot(Div4Mini, data, layout_4_mini, {showLink: false});
+            Plotly.plot(myDiv4Mini, data, layout_4_mini, {showLink: false});
             Plotly.plot(myDiv4Full, data, layout_4_full, {showLink: false});
         });
     </script>

@@ -1,0 +1,69 @@
+<head>
+<!-- Plotly.js -->
+
+<meta charset=utf-8 />
+    <title style="font-size:18px"> Total EV sales by year</title>
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        </head>
+        <body>
+        <header>
+    <h1 align="center", style="font-size:28px"> Electric Vehicle Sales [2011-2025]</h1>
+    <p style="font-size:18px"> Top Months for U.S. EV Sales to Date 2008- 2017:</p>
+    <ul style="font-size:16px">
+    <li type = "1"> March 2018: 26,373</li>
+    <li type = "1"> December 2017: 26,107</li>
+    <li type = "1"> December 2016: 24,785 </li>
+    
+    </ul>
+  <p style="font-size:18px"> Below Chart has the Electric vehicle sales from 2011-2017, and 2018-2025 projected sales:</p>
+</header>
+        <!-- Plotly chart will be drawn inside this DIV -->
+        <div id="myDiv"></div>
+            
+        <script>
+        Plotly.d3.csv('data/total_ev_sales_by_year.csv', function(err, rows){
+      function unpack(rows, key) {
+          return rows.map(function(row) { return row[key]; });
+      }
+    var trace1 = {
+    x: unpack(rows, 'Year'),
+    y: unpack(rows, 'Total_vehicles_sold'),
+    mode: 'lines+markers',
+    connectgaps: true
+    };
+      var data = [trace1];
+
+
+      var layout = {
+          autosize: false,
+          width: 500,
+          height: 500,
+          margin: {l: 60, r:10, b: 80, t: 50, pad: 1},
+        
+          title: 'Total Electric Vehicles Sales by Year',
+          xaxis: {
+          title: 'Year of sales',
+          autotick: false,
+          ticks: 'outside',
+          tick0: 0,
+          dtick: 1,
+         ticklen: 8,
+         tickwidth: 4,
+         tickcolor: 'grey'
+          },
+        yaxis: {
+        title: 'Number of Electric Vehicles'
+        }
+          
+      };
+
+      Plotly.plot(myDiv, data, layout, {showLink: false});
+});
+        </script>
+        </body>
+<nav style="font-size:14px">
+<li type = "square"><a href="index2.html"> Electric Stations in US</a></li>
+    
+    </nav> 
+
