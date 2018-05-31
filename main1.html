@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Electric Car Stats</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/d3Style.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+	</head>
+	<body>
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <h3 align="center"> Electric Vehicle Sales by Manufacturer [2011-2017]</h3>
+            <p style="font-size:18px"> The automakers with the most sales in the US from 2008 through June 2017 to date are:</p>
+            <ul style="font-size:14px">
+                <li type = "1"> General Motors:146,397</li>
+                <li type = "1"> Tesla:134,144</li>
+                <li type = "1"> Nissan:112,128</li>
+            </ul>
+            <p style="font-size:16px"> Below Bar Chart shows the Electric vehicle sales from 2008-2017 by Manufacturers:</p>
+            <svg width="560" height="150" id="svg-1-mini"></svg>
+        </div>
+        <div class="col-lg-6">
+            <div id="myDivMini"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-12" target="_blank">
+        <svg width="960" height="500" id="svg-1-full" target="_blank"></svg>
+    </div>
+
+    <div class="col-lg-12">
+        <div id="myDivFull"></div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <div id="scatter-mini" style="width: 560px;">
+                <!-- We append our chart here. -->
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h1 align="center", style="font-size:28px"> Electric Vehicle Sales [2011-2025]</h1>
+            <p style="font-size:18px"> Top Months for U.S. EV Sales to Date 2008- 2017:</p>
+            <ul style="font-size:16px">
+                <li type = "1"> March 2018: 26,373</li>
+                <li type = "1"> December 2017: 26,107</li>
+                <li type = "1"> December 2016: 24,785 </li>
+
+            </ul>
+            <p style="font-size:18px"> Below Chart has the Electric vehicle sales from 2011-2017, and 2018-2025 projected sales:</p>
+            <!-- Plotly chart will be drawn inside this DIV -->
+            <div id="myDiv4Mini"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div id="scatter-full">
+            <!-- We append our chart here. -->
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div id="myDiv4Full"></div>
+    </div>
+
+    <script>
+        $("#svg-1-full").hide();
+        $("#myDivFull").hide();
+        $("#scatter-full").hide();
+        $("#myDiv4Full").hide();
+
+        $("#svg-1-mini").click(function() {
+            if($("#svg-1-full").is(":visible")) {
+                $("#svg-1-full").hide();
+            }else {
+                // window.open("https://www.google.com")
+                var w = window.open()
+                var html = $("#svg-1-full").html()
+                $(w.document.body).append(html)
+                // console.log(html)
+                // $("#svg-1-full").show();
+                scrollToElement("#svg-1-full");
+            }
+            $("#myDivFull").hide();
+            $("#scatter-full").hide();
+            $("#myDiv4Full").hide();
+        });
+        $("#myDivMini").click(function() {
+            if($("#myDivFull").is(":visible")) {
+                $("#myDivFull").hide();
+            }else {
+                $("#myDivFull").show();
+                scrollToElement("#myDivFull");
+            }
+            $("#svg-1-full").hide();
+            $("#scatter-full").hide();
+            $("#myDiv4Full").hide();
+        });
+        $("#scatter-mini").click(function() {
+            if($("#scatter-full").is(":visible")) {
+                $("#scatter-full").hide();
+            }else {
+                $("#scatter-full").show();
+                scrollToElement("#scatter-full");
+            }
+            $("#svg-1-full").hide();
+            $("#myDivFull").hide();
+            $("#myDiv4Full").hide();
+        });
+        $("#myDiv4Mini").click(function() {
+            if($("#myDiv4Full").is(":visible")) {
+                $("#myDiv4Full").hide();
+            }else {
+                $("#myDiv4Full").show();
+                scrollToElement("#myDiv4Full");
+            }
+            $("#svg-1-full").hide();
+            $("#scatter-full").hide();
+            $("#myDivFull").hide();
+        });
+
+        function scrollToElement(el_id) {
+            var destination = $(el_id).offset().top;
+            $('html').animate({ scrollTop: destination }, 200);
+            return false;
+        }
+
+        /*index1*/
+        var svg_1_mini = d3.select("#svg-1-mini"),
+            margin_1_mini = {top: 20, right: 20, bottom: 30, left: 40},
+            width_1_mini = +svg_1_mini.attr("width") - margin_1_mini.left - margin_1_mini.right,
+            height_1_mini = +svg_1_mini.attr("height") - margin_1_mini.top - margin_1_mini.bottom,
+            g_1_mini = svg_1_mini.append("g").attr("transform", "translate(" + margin_1_mini.left + "," + margin_1_mini.top + ")");
+
+        var svg_1_full = d3.select("#svg-1-full"),
+            margin_1_full = {top: 20, right: 20, bottom: 30, left: 40},
+            width_1_full = +svg_1_full.attr("width") - margin_1_full.left - margin_1_full.right,
+            height_1_full = +svg_1_full.attr("height") - margin_1_full.top - margin_1_full.bottom,
+            g_1_full = svg_1_full.append("g").attr("transform", "translate(" + margin_1_full.left + "," + margin_1_full.top + ")");
+
+        var x0_1_mini = d3.scaleBand()
+            .rangeRound([0, width_1_mini])
+            .paddingInner(0.1);
+
+        var x0_1_full = d3.scaleBand()
+            .rangeRound([0, width_1_full])
+            .paddingInner(0.1);
+
+        var x1_1_mini = d3.scaleBand()
+            .padding(0.05);
+
+        var x1_1_full = d3.scaleBand()
+            .padding(0.05);
+
+        var y_1_mini = d3.scaleLinear()
+            .rangeRound([height_1_mini, 0]);
+
+        var y_1_full = d3.scaleLinear()
+            .rangeRound([height_1_full, 0]);
+
+        var z = d3.scaleOrdinal()
+            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#6b486b", "#7b6888"]);
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+
+            .html(function(d) {
+                console.log(d)
+                return "<strong>Year:</strong>" + d.key + "<br><strong>Number of Vehicles Sold:</strong>" + d.value;
+            });
+
+        svg_1_mini.call(tip);
+        svg_1_full.call(tip);
+
+        d3.csv("data/sales_data.csv", function(d, i, columns) {
+            for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
+            return d;
+        }, function(error, data) {
+            if (error) throw error;
+
+            var keys = data.columns.slice(1);
+
+            x0_1_mini.domain(data.map(function(d) { return d.Manufacturer; }));
+            x0_1_full.domain(data.map(function(d) { return d.Manufacturer; }));
+            x1_1_mini.domain(keys).rangeRound([0, x0_1_mini.bandwidth()]);
+            x1_1_full.domain(keys).rangeRound([0, x0_1_full.bandwidth()]);
+            y_1_mini.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
+            y_1_full.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
+
+            g_1_mini.append("g")
+                .selectAll("g")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d) { return "translate(" + x0_1_mini(d.Manufacturer) + ",0)"; })
+                .selectAll("rect")
+                .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+                .enter().append("rect")
+                .attr("x", function(d) { return x1_1_mini(d.key); })
+                .attr("y", function(d) { return y_1_mini(d.value); })
+                .attr("width", x1_1_mini.bandwidth())
+                .attr("height", function(d) { return height_1_mini - y_1_mini(d.value); })
+                .attr("fill", function(d) { return z(d.key); })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+            g_1_mini.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + height_1_mini + ")")
+                .call(d3.axisBottom(x0_1_mini));
+
+            g_1_mini.append("g")
+                .attr("class", "axis")
+                .call(d3.axisLeft(y_1_mini).ticks(null, "s"))
+                .append("text")
+                .attr("x", 2)
+                .attr("y", y_1_mini(y_1_mini.ticks().pop()) + 0.5)
+                .attr("dy", "0.32em")
+                .attr("fill", "#000")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "start")
+                .text("Sales by Year");
+
+            g_1_full.append("g")
+                .selectAll("g")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d) { return "translate(" + x0_1_full(d.Manufacturer) + ",0)"; })
+                .selectAll("rect")
+                .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+                .enter().append("rect")
+                .attr("x", function(d) { return x1_1_full(d.key); })
+                .attr("y", function(d) { return y_1_full(d.value); })
+                .attr("width", x1_1_full.bandwidth())
+                .attr("height", function(d) { return height_1_full - y_1_full(d.value); })
+                .attr("fill", function(d) { return z(d.key); })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+            g_1_full.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + height_1_full + ")")
+                .call(d3.axisBottom(x0_1_full));
+
+            g_1_full.append("g")
+                .attr("class", "axis")
+                .call(d3.axisLeft(y_1_full).ticks(null, "s"))
+                .append("text")
+                .attr("x", 2)
+                .attr("y", y_1_full(y_1_full.ticks().pop()) + 0.5)
+                .attr("dy", "0.32em")
+                .attr("fill", "#000")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "start")
+                .text("Sales by Year");
+
+            /*var legend_1_mini = g_1_mini.append("g")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", 10)
+                .attr("text-anchor", "end")
+                .selectAll("g")
+                .data(keys.slice().reverse())
+                .enter().append("g")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+            legend_1_mini.append("rect")
+                .attr("x", width_1_mini - 19)
+                .attr("width", 10)
+                .attr("height", 10)
+                .attr("fill", z);
+
+            legend_1_mini.append("text")
+                .attr("x", width_1_mini - 24)
+                .attr("y", 9.5)
+                .attr("dy", "0.32em")
+                .text(function(d) { return d; });*/
+
+            var legend_1_full = g_1_full.append("g")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", 10)
+                .attr("text-anchor", "end")
+                .selectAll("g")
+                .data(keys.slice().reverse())
+                .enter().append("g")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+            legend_1_full.append("rect")
+                .attr("x", width_1_full - 19)
+                .attr("width", 19)
+                .attr("height", 19)
+                .attr("fill", z);
+
+            legend_1_full.append("text")
+                .attr("x", width_1_full - 24)
+                .attr("y", 9.5)
+                .attr("dy", "0.32em")
+                .text(function(d) { return d; });
+
+        });
+
+        /*index2*/
+        Plotly.d3.csv('data/station_data_count.csv', function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row) { return row[key]; });
+            }
+
+            var data = [{
+                type: 'choropleth',
+                locationmode: 'USA-states',
+                locations: unpack(rows, 'State'),
+                z: unpack(rows, 'Number of Stations'),
+                text: unpack(rows, 'EV Connector Types'),
+                zmin: 0,
+                zmax: 4300,
+                colorscale: [
+                    [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
+                    [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
+                    [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
+                ],
+                colorbar: {
+                    title: 'number of stations',
+                    thickness: 15,
+                    len:0.5
+                },
+                marker: {
+                    line:{
+                        color: 'rgb(255,255,255)',
+                        width: 2
+                    }
+                }
+            }];
+
+
+            var layout_mini = {
+                autosize: false,
+                width: 560,
+                height: 460,
+                margin: {l: 20, r:10, b: 10, t: 100, pad: 2},
+
+                title: 'Electric stations by state',
+                geo:{
+                    scope: 'usa',
+                    showlakes: true,
+                    lakecolor: 'rgb(255,255,255)'
+                }
+            };
+
+            var layout_full = {
+                autosize: false,
+                width: 900,
+                height: 900,
+                margin: {l: 20, r:10, b: 10, t: 100, pad: 2},
+
+                title: 'Electric stations by state',
+                geo:{
+                    scope: 'usa',
+                    showlakes: true,
+                    lakecolor: 'rgb(255,255,255)'
+                }
+            };
+
+            Plotly.plot(myDivFull, data, layout_full, {showLink: false});
+            Plotly.plot(myDivMini, data, layout_mini, {showLink: false});
+        });
+
+        /*index3*/
+        graf3("#scatter-mini");
+        graf3("#scatter-full");
+
+        function graf3(div_id) {
+            // D3 Animated Scatter Plot
+            // Section 1: Pre-Data Setup
+            // Grab the width of the containing box
+            //var width = parseInt(d3.select(div_id).style("width"));
+            if(d3.select(div_id).style("width")!='auto')
+                var width = parseInt(d3.select(div_id).style("width"));
+            else
+                var width = 900;
+            // Designate the height of the graph
+            var height = width - width / 3.9;
+
+            // Margin spacing for graph
+            var margin = 20;
+
+            // space for placing words
+            var labelArea = 110;
+
+            // padding for the text at the bottom and left axes
+            var tPadBot = 40;
+            var tPadLeft = 40;
+
+            // Create the actual canvas for the graph
+            var svg = d3
+                .select(div_id)
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("class", "chart");
+
+            // Set the radius for each dot that will appear in the graph.
+            // Note: Making this a function allows us to easily call
+            // it in the mobility section of our code.
+            var circRadius;
+
+            function crGet() {
+                if (width <= 630) {
+                    circRadius = 5;
+                }
+                else {
+                    circRadius = 20;
+                }
+            }
+
+            crGet();
+
+            // The Labels for our Axes
+
+            // A) Bottom Axis
+            // ==============
+
+            if(div_id=="#scatter-full") {
+                // We create a group element to nest our bottom axes labels.
+                svg.append("g").attr("class", "xText");
+                // xText will allows us to select the group without excess code.
+                var xText = d3.select(".xText");
+
+                // We give xText a transform property that places it at the bottom of the chart.
+                // By nesting this attribute in a function, we can easily change the location of the label group
+                // whenever the width of the window changes.
+                function xTextRefresh() {
+                    xText.attr(
+                        "transform",
+                        "translate(" +
+                        ((width - labelArea) / 2 + labelArea) +
+                        ", " +
+                        (height - margin - tPadBot) +
+                        ")"
+                    );
+                }
+
+                xTextRefresh();
+
+                // Now we use xText to append three text SVGs, with y coordinates specified to space out the values.
+                // Starting Price
+                xText
+                    .append("text")
+                    .attr("x", 0)
+                    .attr("data-name", "price")
+                    .attr("data-axis", "x")
+                    .attr("class", "aText active x")
+                    .text("Starting Price");
+            }
+
+            // B) Left Axis
+            // ============
+
+            // Specifying the variables like this allows us to make our transform attributes more readable.
+            var leftTextX = margin + tPadLeft;
+            var leftTextY = (height + labelArea) / 2 - labelArea;
+
+
+            if(div_id=="#scatter-full") {
+                // We add a second label group, this time for the axis left of the chart.
+                svg.append("g").attr("class", "yText");
+
+                // yText will allows us to select the group without excess code.
+                var yText = d3.select(".yText");
+
+                // Like before, we nest the group's transform attr in a function
+                // to make changing it on window change an easy operation.
+                function yTextRefresh() {
+                    yText.attr(
+                        "transform",
+                        "translate(" + leftTextX + ", " + leftTextY + ")rotate(-90)"
+                    );
+                }
+
+                yTextRefresh();
+
+                // Now we append the text.
+                // Mile Range
+                yText
+                    .append("text")
+                    .attr("y", -26)
+                    .attr("data-name", "Range")
+                    .attr("data-axis", "y")
+                    .attr("class", "aText active y")
+                    .text("Mile Range");
+            }
+
+            // 2. Import our .csv file.
+            // ========================
+            // This data file includes basic information on electric vehicle models
+
+            // Import our CSV data with d3's .csv import method.
+            d3.csv("data/eCars.csv", function (data) {
+                // Visualize the data
+                visualize(data);
+            });
+
+            // 3. Create our visualization function
+            // ====================================
+            // We called a "visualize" function on the data obtained with d3's .csv method.
+            // This function handles the visual manipulation of all elements dependent on the data.
+            function visualize(theData) {
+                // PART 1: Essential Local Variables and Functions
+                // =================================
+                // curX and curY will determine what data get's represented in each axis.
+                // We designate our defaults here, which carry the same names
+                // as the headings in their matching .csv data file.
+                var curX = "price";
+                var curY = "Range";
+                var shopLink = "url";
+
+                // We also save empty variables for our the min and max values of x and y.
+                // this will allow us to alter the values in functions and remove repititious code.
+                var xMin;
+                var xMax;
+                var yMin;
+                var yMax;
+
+                // This function allows us to set up tooltip rules (see d3-tip.js).
+                var toolTip = d3
+                    .tip()
+                    .attr("class", "d3-tip")
+                    .offset([40, -60])
+                    .html(function (d) {
+                        // x key
+                        var theX;
+                        // Grab the makeModel name.
+                        var makeModel = "<div>" + d.makeModel + "</div>";
+                        // Snatch the y value's key and value.
+                        var theY = "<div>" + curY + ": " + d[curY] + "miles";
+                        // If the x key is price
+                        if (curX === "price") {
+                            // Grab the x key and a version of the value formatted to show $
+                            theX = "<div>" + curX + ": " + "$" + d[curX];
+                        }
+                        else {
+                            // Otherwise
+                            // Grab the x key and a version of the value formatted to include commas after every third digit.
+                            theX = "<div>" +
+                                curX +
+                                ": " +
+                                parseFloat(d[curX]).toLocaleString("en") +
+                                "</div>";
+                        }
+                        // Display what we capture.
+                        return makeModel + theX + theY;
+                    });
+                // Call the toolTip function.
+                svg.call(toolTip);
+
+                // PART 2:
+                // ==============
+
+                // a. change the min and max for x
+                function xMinMax() {
+                    // min will grab the smallest datum from the selected column.
+                    xMin = d3.min(theData, function (d) {
+                        return parseFloat(d[curX]) * 0.90;
+                    });
+
+                    // .max will grab the largest datum from the selected column.
+                    xMax = d3.max(theData, function (d) {
+                        return parseFloat(d[curX]) * 1.10;
+                    });
+                }
+
+                // b. change the min and max for y
+                function yMinMax() {
+                    // min will grab the smallest datum from the selected column.
+                    yMin = d3.min(theData, function (d) {
+                        return parseFloat(d[curY]) * 0.90;
+                    });
+
+                    // .max will grab the largest datum from the selected column.
+                    yMax = d3.max(theData, function (d) {
+                        return parseFloat(d[curY]) * 1.10;
+                    });
+                }
+
+
+                // Part 3: Instantiate the Scatter Plot
+                // ====================================
+                // This will add the first placement of our data and axes to the scatter plot.
+
+                // First grab the min and max values of x and y.
+                xMinMax();
+                yMinMax();
+
+                // With the min and max values now defined, we can create our scales.
+                // Notice in the range method how we include the margin and word area.
+                // This tells d3 to place our circles in an area starting after the margin and word area.
+                var xScale = d3
+                    .scaleLinear()
+                    .domain([xMin, xMax])
+                    .range([margin + labelArea, width - margin]);
+                var yScale = d3
+                    .scaleLinear()
+                    .domain([yMin, yMax])
+                    // Height is inversed due to how d3 calc's y-axis placement
+                    .range([height - margin - labelArea, margin]);
+
+                // We pass the scales into the axis methods to create the axes.
+                // Note: D3 4.0 made this a lot less cumbersome then before. Kudos to mbostock.
+                var xAxis = d3.axisBottom(xScale);
+                var yAxis = d3.axisLeft(yScale);
+
+                // Determine x and y tick counts.
+                // Note: Saved as a function for easy mobile updates.
+                function tickCount() {
+                    if (width <= 500) {
+                        xAxis.ticks(5);
+                        yAxis.ticks(5);
+                    }
+                    else {
+                        xAxis.ticks(10);
+                        yAxis.ticks(10);
+                    }
+                }
+
+                tickCount();
+
+                // We append the axes in group elements. By calling them, we include
+                // all of the numbers, borders and ticks.
+                // The transform attribute specifies where to place the axes.
+                svg
+                    .append("g")
+                    .call(xAxis)
+                    .attr("class", "xAxis")
+                    .attr("transform", "translate(0," + (height - margin - labelArea) + ")");
+                svg
+                    .append("g")
+                    .call(yAxis)
+                    .attr("class", "yAxis")
+                    .attr("transform", "translate(" + (margin + labelArea) + ", 0)");
+
+                // Now let's make a grouping for our dots and their labels.
+                var theCircles = svg.selectAll("g theCircles").data(theData).enter();
+
+                // We append the circles for each row of data (or each makeModel, in this case).
+                theCircles
+                    .append("circle")
+                    .attr("fill", "lightblue")
+                    .attr("stroke-width", "1")
+                    .attr("stroke", "brown")
+                    // These attr's specify location, size and class.
+                    .attr("cx", function (d) {
+                        return xScale(d[curX]);
+                    })
+                    .attr("cy", function (d) {
+                        return yScale(d[curY]);
+                    })
+                    .attr("r", circRadius)
+                    .attr("class", function (d) {
+                        return "carCircle" + d.abbr;
+                    })
+                    // Hover rules
+                    .on("mouseover", function (d) {
+                        // Show the tooltip
+                        toolTip.show(d);
+                        // Highlight the car circle's border
+                        d3.select(this).style("stroke", "#323232");
+                    })
+                    .on("mouseout", function (d) {
+                        // Remove the tooltip
+                        toolTip.hide(d);
+                        // Remove highlight
+                        d3.select(this).style("stroke", "#e3e3e3");
+                        d3.select(this).style("fill", "brown")
+                    })
+                    .on("click", function (d) {
+                        // Click through links
+                        window.location.href = d.url
+                    });
+
+                // With the circles on our graph, we need matching labels.
+                // Let's grab the car abbreviations from our data
+                // and place them in the center of our dots.
+                theCircles
+                    .append("text")
+                    // We return the abbreviation to .text, which makes the text the abbreviation.
+                    .text(function (d) {
+                        return d.abbr;
+                    })
+                    // Now place the text using our scale.
+                    .attr("dx", function (d) {
+                        return xScale(d[curX]);
+                    })
+                    .attr("dy", function (d) {
+                        // When the size of the text is the radius,
+                        // adding a third of the radius to the height
+                        // pushes it into the middle of the circle.
+                        return yScale(d[curY]) + circRadius / 2.5;
+                    })
+                    .attr("font-size", circRadius)
+                    .attr("class", "carText")
+                    // Hover Rules
+                    .on("mouseover", function (d) {
+                        // Show the tooltip
+                        toolTip.show(d);
+                        // Highlight the car circle's border
+                        d3.select("." + d.abbr).style("stroke", "#323232");
+                    })
+                    .on("mouseout", function (d) {
+                        // Remove tooltip
+                        toolTip.hide(d);
+                        // Remove highlight
+                        d3.select("." + d.abbr).style("stroke", "#e3e3e3");
+                    });
+
+                // Part 4: Dynamize the Graph
+                // ==========================
+                // This section will allow the user to click on any label
+                // and display the data it references.
+
+
+                // Part 5: Mobile Responsive
+                // =========================
+                // With d3, call a resize function whenever the window dimensions change.
+                // to make it possible to add true mobile-responsiveness to our charts.
+                d3.select(window).on("resize", resize);
+                function resize() {
+                    // Redefine the width, height and leftTextY (the three variables dependent on the width of the window).
+                    width = parseInt(d3.select(div_id).style("width"));
+                    height = width - width / 3.9;
+                    leftTextY = (height + labelArea) / 2 - labelArea;
+
+                    // Apply the width and height to the svg canvas.
+                    svg.attr("width", width).attr("height", height);
+
+
+                    // Change the xScale and yScale ranges
+                    xScale.range([margin + labelArea, width - margin]);
+                    yScale.range([height - margin - labelArea, margin]);
+
+                    // With the scales changes, update the axes (and the height of the x-axis)
+                    svg
+                        .select(".xAxis")
+                        .call(xAxis)
+                        .attr("transform", "translate(0," + (height - margin - labelArea) + ")");
+
+                    svg.select(".yAxis").call(yAxis);
+
+                    // Update the ticks on each axis.
+                    tickCount();
+
+                    // Update the labels.
+                    xTextRefresh();
+                    yTextRefresh();
+
+                    // Update the radius of each dot.
+                    crGet();
+
+                    // With the axis changed, let's update the location and radius of the car circles.
+                    d3
+                        .selectAll("circle")
+                        .attr("cy", function (d) {
+                            return yScale(d[curY]);
+                        })
+                        .attr("cx", function (d) {
+                            return xScale(d[curX]);
+                        })
+                        .attr("r", function () {
+                            return circRadius;
+                        });
+
+                    // We need change the location and size of the car texts, too.
+                    d3
+                        .selectAll(".carText")
+                        .attr("dy", function (d) {
+                            return yScale(d[curY]) + circRadius / 3;
+                        })
+                        .attr("dx", function (d) {
+                            return xScale(d[curX]);
+                        })
+                        .attr("r", circRadius / 3);
+                }
+            }
+        }
+
+        /*index4*/
+        Plotly.d3.csv('data/total_ev_sales_by_year.csv', function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row) { return row[key]; });
+            }
+            var trace1 = {
+                x: unpack(rows, 'Year'),
+                y: unpack(rows, 'Total_vehicles_sold'),
+                mode: 'lines+markers',
+                connectgaps: true
+            };
+            var data = [trace1];
+
+
+            var layout_4_mini = {
+                autosize: false,
+                width: 560,
+                height: 360,
+                margin: {l: 60, r:10, b: 80, t: 50, pad: 1},
+
+                title: 'Total Electric Vehicles Sales by Year',
+                xaxis: {
+                    title: 'Year of sales',
+                    autotick: false,
+                    ticks: 'outside',
+                    tick0: 0,
+                    dtick: 1,
+                    ticklen: 8,
+                    tickwidth: 4,
+                    tickcolor: 'grey'
+                },
+                yaxis: {
+                    title: 'Number of Electric Vehicles'
+                }
+
+            };
+
+            var layout_4_full = {
+                autosize: false,
+                width: 900,
+                height: 500,
+                margin: {l: 60, r:10, b: 80, t: 50, pad: 1},
+
+                title: 'Total Electric Vehicles Sales by Year',
+                xaxis: {
+                    title: 'Year of sales',
+                    autotick: false,
+                    ticks: 'outside',
+                    tick0: 0,
+                    dtick: 1,
+                    ticklen: 8,
+                    tickwidth: 4,
+                    tickcolor: 'grey'
+                },
+                yaxis: {
+                    title: 'Number of Electric Vehicles'
+                }
+
+            };
+
+            Plotly.plot(myDiv4Mini, data, layout_4_mini, {showLink: false});
+            Plotly.plot(myDiv4Full, data, layout_4_full, {showLink: false});
+        });
+    </script>
+  </body>
+</html>
