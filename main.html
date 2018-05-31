@@ -31,6 +31,15 @@
             <div id="myDivMini"></div>
         </div>
     </div>
+    <!-- added verbiage-->
+    <div class="col-xs-12  col-md-9">
+            <div class="instructions">
+                 <h2>Shop for Electric Vehicles!</h2>
+                  <p> - Click on each bubble to shop for the selected electric car</p>
+                <p> - Hover on each bubble to learn the name of the car and its mile range and price</p>
+                 </div>
+            </div>
+    </div>
 
     <div class="col-lg-12">
         <svg width="960" height="500" id="svg-1-full"></svg>
@@ -81,10 +90,8 @@
             if($("#svg-1-full").is(":visible")) {
                 $("#svg-1-full").hide();
             }else {
-//                $("#svg-1-full").attr('target', '_blank');
-                window.open(svg_1_full, 'window name', 'window settings');
-//                $("#svg-1-full").show().attr('target', '_blank')
-//                $("#svg-1-full").show();
+
+                $("#svg-1-full").show();
                 scrollToElement("#svg-1-full");
             }
             $("#myDivFull").hide();
@@ -845,7 +852,7 @@
 
             };
 
-            Plotly.plot(myDiv4Mini, data, layout_4_mini, {showLink: false});
+            Plotly.plot(Div4Mini, data, layout_4_mini, {showLink: false});
             Plotly.plot(myDiv4Full, data, layout_4_full, {showLink: false});
         });
     </script>
