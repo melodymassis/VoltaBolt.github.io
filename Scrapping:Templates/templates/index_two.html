@@ -10,12 +10,16 @@
 
   <style>
 
-    .btn-primary {
+  .btn-primary-one {
                   background-color: black;
                   border-color: darkred;
                  }
+.btn-primary-two {
+                  background-color: navy;
+                  border-color: darkred;
+}
 
-  .btn-xl {
+  .btn-xl-one {
             font-size: 18px;
             padding-top: 20px;
             padding-bottom: 20px;
@@ -23,12 +27,25 @@
             padding-right:40px;
           }
   
-  .btn {
+  .btn-one {
           position: absolute;
           font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
           font-weight: 700;
           top: 75%;
           left: 25%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+}
+.btn-two {
+          position: absolute;
+          font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+          font-weight: 700;
+          top: 75%;
+          left: 39%;
           transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%);
           color: white;
@@ -58,17 +75,22 @@
     <div class="carousel-inner">
       <div class="item active">
         <img src= "http://highluxcars.site/wp-content/uploads/2018/02/bmw-i8-owners-manual-unique-bmw-i8-model-overview-bmw-north-america-of-bmw-i8-owners-manual.jpg" style="width:100%;  height: 30%;">
-        <a class="btn btn-primary btn-xl text-uppercase" href="search">Continue ( Click Me! )</a>
+        <a class="btn-one btn-primary-one btn-xl-one text-uppercase" href="search">Continue...</a>
+        <a class="btn-two btn-primary-two btn-xl-one text-uppercase" href="http://159.65.254.153/main.html">View Stats</a>
+      
       </div>
 
       <div class="item">
         <img src="https://s3.envato.com/files/111068452/BMW_i8_0032.jpg" alt="Chicago" style="width:100%;">
-        <a class="btn btn-primary btn-xl text-uppercase" href="search">Continue ( Click Me! )</a>
+        <a class="btn-one btn-primary-one btn-xl-one text-uppercase" href="search">Continue...</a>
+        <a class="btn-two btn-primary-two btn-xl-one text-uppercase" href="http://159.65.254.153/main.html">View Stats</a>
+     
       </div>
     
       <div class="item">
         <img src="http://autowpaper.com/images/bmw-i8-wallpaper-1920x1080-1.jpg" alt="New york" style="width:100%;">
-        <a class="btn btn-primary btn-xl text-uppercase" href="search">Continue ( Click Me! )</a>
+        <a class="btn-one btn-primary-one btn-xl-one text-uppercase" href="search">Continue...</a>
+        <a class="btn-two btn-primary-two btn-xl-one text-uppercase" href="http://159.65.254.153/main.html">View Stats</a>
       </div>
     </div>
 
