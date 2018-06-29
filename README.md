@@ -15,4 +15,6 @@ Leveraged D3 charting to create a visual aid for shoppers to make a comparison c
 
 ![img](D3.png)
 
-Presentation: https://docs.google.com/presentation/d/1yWrkf16IUOf0IauzldwxQbD3hpqM_8E77nWGdXcdy4k/edit#slide=id.p1
+This D3 visualization resizes based on the screen size of the user, and after the user hovers over the circle it will change color to show which bubbles the user has already explored. There is also a tooltip that appears when the user hovers over the bubble. Finally, each bubble is click-able and when clicked it will take the user to the homepage of each car where they can research further on where to purchase.
+
+Final Team Presentation: https://docs.google.com/presentation/d/1yWrkf16IUOf0IauzldwxQbD3hpqM_8E77nWGdXcdy4k/edit#slide=id.p1
