@@ -8,9 +8,11 @@ The team was broken up in Research and Development, Back End and Front End visua
 Visualization sample:
 
 Leveraged D3 charting to create a visual aid for shoppers to make a comparison chart between:
+
 	- Car model price
+	
 	- Mile range
 
-
+![img](D3.png)
 
 Presentation: https://docs.google.com/presentation/d/1yWrkf16IUOf0IauzldwxQbD3hpqM_8E77nWGdXcdy4k/edit#slide=id.p1
